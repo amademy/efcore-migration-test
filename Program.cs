@@ -6,19 +6,6 @@ var products = db.Products.ToList();
 
 class AppDbContext : DbContext
 {
-	static AppDbContext()
-	{
-#pragma warning disable
-		NpgsqlConnection.GlobalTypeMapper
-			.MapEnum<ProductTrait>();
-	}
-
-	protected override void OnModelCreating(ModelBuilder modelBuilder)
-	{
-		modelBuilder
-			.HasPostgresEnum<ProductTrait>();
-	}
-
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
 		optionsBuilder
 			.UseNpgsql(new NpgsqlConnectionStringBuilder
@@ -36,12 +23,5 @@ class AppDbContext : DbContext
 class Product
 {
 	public required int Id { get; set; }
-	public required List<ProductTrait> Traits { get; set; }
-}
-
-enum ProductTrait
-{
-	Foo,
-	Bar,
-	Buzz,
+	public required string Title { get; set; }
 }
